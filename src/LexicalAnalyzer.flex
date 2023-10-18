@@ -37,7 +37,7 @@ Number         = ({Numeric})+
 
 <LONGCOMMENTS> {
 // End of comment
-	"%%"             {yybegin(YYINITIAL);} // go back to analysis
+	"””"             {yybegin(YYINITIAL);} // go back to analysis
   <<EOF>>          {throw new PatternSyntaxException("A comment is never closed.",yytext(),yyline);}
 	[^]					     {} //ignore any character
 }
@@ -45,8 +45,8 @@ Number         = ({Numeric})+
 
 <YYINITIAL> {
 // Comments
-    "::"              {yybegin(SHORTCOMMENTS);} // go to ignore mode
-    "%%"              {yybegin(LONGCOMMENTS);} // go to ignore mode
+    "**"              {yybegin(SHORTCOMMENTS);} // go to ignore mode
+    "””"              {yybegin(LONGCOMMENTS);} // go to ignore mode
 // Delimiters
   "BEGIN"             {return new Symbol(LexicalUnit.BEGIN, yyline, yycolumn, yytext());}
   "END"               {return new Symbol(LexicalUnit.END, yyline, yycolumn, yytext());}
