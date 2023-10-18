@@ -22,12 +22,18 @@ Alpha             = {AlphaUpperCase}|{AlphaLowerCase}
 Numeric           = [0-9]
 AlphaNumeric      = {Alpha}|{Numeric}
 LowerAlphaNumeric	= {AlphaLowerCase}|{Numeric}
-
+LineFeed       = "\n"
+CarriageReturn = "\r"
+EndLine        = ({LineFeed}{CarriageReturn}?) | ({CarriageReturn}{LineFeed}?)
+Space          = (\t | \f | " ")
+Spaces         = {Space}+
 
 VarName        = ({AlphaLowerCase})({AlphaNumeric})*
 Number         = ({Numeric})+
 
-%%xstate YYINITIAL, SHORTCOMMENTS, LONGCOMMENTS
+%xstate YYINITIAL, SHORTCOMMENTS, LONGCOMMENTS
+
+%%// Identification of tokens
 
 <SHORTCOMMENTS> {
 // End of comment
@@ -48,9 +54,8 @@ Number         = ({Numeric})+
     "**"              {yybegin(SHORTCOMMENTS);} // go to ignore mode
     "””"              {yybegin(LONGCOMMENTS);} // go to ignore mode
 // Delimiters
-  "BEGIN"             {return new Symbol(LexicalUnit.BEGIN, yyline, yycolumn, yytext());}
-  "END"               {return new Symbol(LexicalUnit.END, yyline, yycolumn, yytext());}
-  ","                 {return new Symbol(LexicalUnit.COMMA, yyline, yycolumn, yytext());}
+  "begin"             {return new Symbol(LexicalUnit.BEGIN, yyline, yycolumn, yytext());}
+  "end"               {return new Symbol(LexicalUnit.END, yyline, yycolumn, yytext());}
 // Assignation
   ":="                {return new Symbol(LexicalUnit.ASSIGN, yyline, yycolumn, yytext());}
 // Parenthesis
@@ -62,27 +67,25 @@ Number         = ({Numeric})+
   "*"                 {return new Symbol(LexicalUnit.TIMES, yyline, yycolumn, yytext());}
   "/"                 {return new Symbol(LexicalUnit.DIVIDE, yyline, yycolumn, yytext());}
 // Conditional keywords
-  "IF"                {return new Symbol(LexicalUnit.IF, yyline, yycolumn, yytext());}
-  "THEN"              {return new Symbol(LexicalUnit.THEN, yyline, yycolumn, yytext());}
-  "ELSE"              {return new Symbol(LexicalUnit.ELSE, yyline, yycolumn, yytext());}
+  "if"                {return new Symbol(LexicalUnit.IF, yyline, yycolumn, yytext());}
+  "then"              {return new Symbol(LexicalUnit.THEN, yyline, yycolumn, yytext());}
+  "else"              {return new Symbol(LexicalUnit.ELSE, yyline, yycolumn, yytext());}
+// Boolean operators
+    "and"               {return new Symbol(LexicalUnit.AND, yyline, yycolumn, yytext());}
+    "or"                {return new Symbol(LexicalUnit.OR, yyline, yycolumn, yytext());}
 // Loop keywords
-  "WHILE"             {return new Symbol(LexicalUnit.WHILE, yyline, yycolumn, yytext());}
-  "DO"                {return new Symbol(LexicalUnit.DO, yyline, yycolumn, yytext());}
+  "while"             {return new Symbol(LexicalUnit.WHILE, yyline, yycolumn, yytext());}
+  "do"                {return new Symbol(LexicalUnit.DO, yyline, yycolumn, yytext());}
 // Comparison operators
   "="                 {return new Symbol(LexicalUnit.EQUAL, yyline, yycolumn, yytext());}
-  ">"                 {return new Symbol(LexicalUnit.GREATER, yyline, yycolumn, yytext());}
   "<"                 {return new Symbol(LexicalUnit.SMALLER, yyline, yycolumn, yytext());}
 // IO keywords
-  "PRINT"             {return new Symbol(LexicalUnit.PRINT, yyline, yycolumn, yytext());}
-  "READ"              {return new Symbol(LexicalUnit.READ, yyline, yycolumn, yytext());}
+  "print"             {return new Symbol(LexicalUnit.PRINT, yyline, yycolumn, yytext());}
+  "read"              {return new Symbol(LexicalUnit.READ, yyline, yycolumn, yytext());}
 // Numbers
-  {BadNumber}        {System.err.println("Warning! Numbers with leading zeros are not permitted: " + yytext()); return new Symbol(LexicalUnit.NUMBER, yyline, yycolumn, Integer.valueOf(yytext()));}
   {Number}           {return new Symbol(LexicalUnit.NUMBER, yyline, yycolumn, Integer.valueOf(yytext()));}
 // Variable Names
   {VarName}           {return new Symbol(LexicalUnit.VARNAME, yyline, yycolumn, yytext());}
-// Program Names
-  {ProgName}          {return new Symbol(LexicalUnit.PROGNAME, yyline, yycolumn, yytext());}
-  {BadProgName}       {System.err.println("Warning! Program names in uppercase are not permitted: " + yytext()); return new Symbol(LexicalUnit.PROGNAME, yyline, yycolumn, yytext());}
 // Other
   {Spaces}	          {} // ignore spaces
   {EndLine}           {} // ignore endlines
