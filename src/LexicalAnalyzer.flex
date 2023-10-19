@@ -79,6 +79,8 @@ Number         = ({Numeric})+
 // Comparison operators
   "="                 {return new Symbol(LexicalUnit.EQUAL, yyline, yycolumn, yytext());}
   "<"                 {return new Symbol(LexicalUnit.SMALLER, yyline, yycolumn, yytext());}
+// DOTS
+  "..."               {return new Symbol(LexicalUnit.DOTS, yyline, yycolumn, yytext());}
 // IO keywords
   "print"             {return new Symbol(LexicalUnit.PRINT, yyline, yycolumn, yytext());}
   "read"              {return new Symbol(LexicalUnit.READ, yyline, yycolumn, yytext());}
@@ -89,5 +91,6 @@ Number         = ({Numeric})+
 // Other
   {Spaces}	          {} // ignore spaces
   {EndLine}           {} // ignore endlines
-  [^]                 {throw new PatternSyntaxException("Unmatched symbol(s) found.",yytext(),yyline);} // unmatched symbols gives an error
+    [^]                 {throw new PatternSyntaxException("Unmatched symbol(s) found.",yytext(),yyline);} // unmatched symbols gives an error
+
 }
