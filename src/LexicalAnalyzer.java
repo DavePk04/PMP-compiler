@@ -858,7 +858,7 @@ class LexicalAnalyzer {
           // fall through
           case 51: break;
           case 25:
-            { return new Symbol(LexicalUnit.BEGIN, yyline, yycolumn, yytext());
+            { return new Symbol(LexicalUnit.BEG, yyline, yycolumn, yytext());
             }
           // fall through
           case 52: break;

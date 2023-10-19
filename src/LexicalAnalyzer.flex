@@ -54,7 +54,7 @@ Number         = ({Numeric})+
     "**"              {yybegin(SHORTCOMMENTS);} // go to ignore mode
     "””"              {yybegin(LONGCOMMENTS);} // go to ignore mode
 // Delimiters
-  "begin"             {return new Symbol(LexicalUnit.BEGIN, yyline, yycolumn, yytext());}
+  "begin"             {return new Symbol(LexicalUnit.BEG, yyline, yycolumn, yytext());}
   "end"               {return new Symbol(LexicalUnit.END, yyline, yycolumn, yytext());}
 // Assignation
   ":="                {return new Symbol(LexicalUnit.ASSIGN, yyline, yycolumn, yytext());}
