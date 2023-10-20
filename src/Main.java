@@ -26,8 +26,8 @@ public class Main{
     public static void main(String[] args) throws FileNotFoundException, IOException, SecurityException{
         // Display the usage when the number of arguments is wrong (should be 1)
         if(args.length != 1){
-            System.out.println("Usage:  java -jar part1.jar file.fs\n"
-                    + "or\tjava "+Main.class.getSimpleName()+" file.fs");
+            System.out.println("Usage:  java -jar part1.jar file.pmp\n"
+                    + "or\tjava "+Main.class.getSimpleName()+" file.pmp");
             System.exit(0);
         }
 
