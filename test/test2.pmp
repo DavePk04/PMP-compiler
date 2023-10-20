@@ -1,0 +1,98 @@
+program PascalMaisPresqueCompiler;
+
+uses
+  SysUtils;
+
+type
+  TokenType = (VarName, Number, Comment);
+
+var
+  Code: string;
+
+procedure Tokenize;
+var
+  Token: string;
+  Ch: Char;
+  i: Integer;
+begin
+  i := 1;
+  while i <= Length(Code) do
+  begin
+    Ch := Code[i];
+
+    // Check for comments
+    if (Ch = '*') and (i < Length(Code)) and (Code[i + 1] = '*') then
+    begin
+      Token := '';
+      while (i <= Length(Code)) and (Code[i] <> #13) and (Code[i] <> #10) do
+      begin
+        Token := Token + Code[i];
+        Inc(i);
+      end;
+      Writeln('Comment: ', Token);
+    end
+
+    // Check for long comments
+    else if (Ch = '''') then
+    begin
+      Token := '';
+      Inc(i);
+      while (i <= Length(Code)) and (Code[i] <> '''') do
+      begin
+        Token := Token + Code[i];
+        Inc(i);
+      end;
+      Inc(i); // Skip the closing apostrophe
+      Writeln('Comment: ', Token);
+    end
+
+    // Check for variables
+    else if (Ch >= 'a') and (Ch <= 'z') then
+    begin
+      Token := '';
+      while (i <= Length(Code)) and ((Code[i] >= 'a') and (Code[i] <= 'z') or (Code[i] >= '0') and (Code[i] <= '9')) do
+      begin
+        Token := Token + Code[i];
+        Inc(i);
+      end;
+      Writeln('Variable: ', Token);
+    end
+
+    // Check for numbers
+    else if (Ch >= '0') and (Ch <= '9') then
+    begin
+      Token := '';
+      while (i <= Length(Code)) and (Code[i] >= '0') and (Code[i] <= '9') do
+      begin
+        Token := Token + Code[i];
+        Inc(i);
+      end;
+      Writeln('Number: ', Token);
+    end
+
+    // Skip whitespaces
+    else if not (Ch in [' ', #9, #10, #13]) then
+    begin
+      Inc(i);
+    end
+    else
+    begin
+      Inc(i);
+    end;
+  end;
+end;
+
+begin
+  // Read PascalMaisPresque code from a file or user input
+  Code := 'procedure Test; ** This is a short comment' + sLineBreak +
+          'var x, y: integer; ** Another short comment' + sLineBreak +
+          'begin' + sLineBreak +
+          '  x := 10;  '' This is a long comment'' ' + sLineBreak +
+          '  y := x + 5;' + sLineBreak +
+          'end.';
+
+  // Tokenize and print the results
+  Tokenize;
+
+  Readln;
+end.
