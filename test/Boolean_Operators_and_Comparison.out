@@ -1,0 +1,12 @@
+token: begin	lexical unit: BEG
+token: if	lexical unit: IF
+token: a	lexical unit: VARNAME
+token: and	lexical unit: AND
+token: b	lexical unit: VARNAME
+token: or	lexical unit: OR
+token: c	lexical unit: VARNAME
+token: <	lexical unit: SMALLER
+token: d	lexical unit: VARNAME
+token: then	lexical unit: THEN
+token: ...	lexical unit: DOTS
+token: end	lexical unit: END

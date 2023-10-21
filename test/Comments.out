@@ -1,0 +1,7 @@
+token: begin	lexical unit: BEG
+token: a	lexical unit: VARNAME
+token: :=	lexical unit: ASSIGN
+token: b	lexical unit: VARNAME
+token: ...	lexical unit: DOTS
+token: end	lexical unit: END
+Exception in thread "main" java.util.regex.PatternSyntaxException: A comment is never closed. near index 5

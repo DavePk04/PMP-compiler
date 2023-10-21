@@ -18,10 +18,12 @@ import java.util.regex.PatternSyntaxException;
 
 AlphaUpperCase    = [A-Z]
 AlphaLowerCase    = [a-z]
-Alpha             = {AlphaUpperCase}|{AlphaLowerCase}
 Numeric           = [0-9]
+
+Alpha             = {AlphaUpperCase}|{AlphaLowerCase}
 AlphaNumeric      = {Alpha}|{Numeric}
 LowerAlphaNumeric	= {AlphaLowerCase}|{Numeric}
+
 LineFeed       = "\n"
 CarriageReturn = "\r"
 EndLine        = ({LineFeed}{CarriageReturn}?) | ({CarriageReturn}{LineFeed}?)
@@ -50,7 +52,7 @@ Number         = ({Numeric})+
 
 
 <YYINITIAL> {
-// Comments
+// Comments.pmp
     "**"              {yybegin(SHORTCOMMENTS);} // go to ignore mode
     "''"              {yybegin(LONGCOMMENTS);} // go to ignore mode
 // Delimiters
