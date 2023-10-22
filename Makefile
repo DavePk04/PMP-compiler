@@ -27,7 +27,7 @@ javadoc:
 
 # run the test (test1.pmp); you can change the test file name
 test: jar
-	java -jar $(DIST)/part1.jar $(TEST)/test1.pmp
+	java -jar $(DIST)/part1.jar $(TEST)/euclid.pmp
 
 # clean the compiled files and doc
 clean:
