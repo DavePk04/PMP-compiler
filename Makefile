@@ -11,19 +11,19 @@ compile:
 
 # Run the test
 test_euclid:
-	cd src && java Main ../euclid.pmp
+	java Main euclid.pmp
 
 test_arithmetic_operators:
-	cd src && java Main ../test/Aritmetic_Operators.pmp
+	java Main test/Aritmetic_Operators.pmp
 
 test_basic_keywords_and_Operators:
-	cd src && java Main ../test/Basic_Keywords_and_Operators.pmp
+	java Main test/Basic_Keywords_and_Operators.pmp
 
 test_boolean_operators_and_comparison:
-	cd src && java Main ../test/Boolean_Operators_and_Comparison.pmp
+	java Main test/Boolean_Operators_and_Comparison.pmp
 
 test_comments:
-	cd src && java Main ../test/Comments.pmp
+	java Main test/Comments.pmp
 
 test_error_scenarios:
 	cd src && java Main ../test/Error_Scenarios.pmp
@@ -33,4 +33,4 @@ test_loops:
 
 # Clean compiled files
 clean:
-	rm -f src/*.class
+	rm -f *.class
