@@ -63,6 +63,9 @@ Number         = ({Numeric})+
 // Parenthesis
   "("                 {return new Symbol(LexicalUnit.LPAREN, yyline, yycolumn, yytext());}
   ")"                 {return new Symbol(LexicalUnit.RPAREN, yyline, yycolumn, yytext());}
+  "{"                 {return new Symbol(LexicalUnit.LBRACK, yyline, yycolumn, yytext());}
+  "}"                 {return new Symbol(LexicalUnit.RBRACK, yyline, yycolumn, yytext());}
+
 // Arithmetic signs
   "+"                 {return new Symbol(LexicalUnit.PLUS, yyline, yycolumn, yytext());}
   "-"                 {return new Symbol(LexicalUnit.MINUS, yyline, yycolumn, yytext());}
