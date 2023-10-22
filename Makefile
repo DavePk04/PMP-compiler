@@ -1,36 +1,37 @@
-# Default target
-all: jflex compile test_euclid
-tests: test_euclid test_arithmetic_operators test_basic_keywords_and_Operators test_boolean_operators_and_comparison test_comments test_error_scenarios test_loops
-# Generate the Lexer Java class from the JFlex specification
-jflex:
-	jflex -d src src/LexicalAnalyzer.flex
+# variables
+JFLAGS = -g
+JC = javac
+JAR = jar cfe
+JFLEX = jflex
+JDOC = javadoc
+SRC = ./src
+DOC = ./doc
+DIST = ./dist
+TEST = ./test
 
-# Compile the Java classes
-compile:
-	javac -d . src/*.java
+# make target
+all: jar javadoc
 
-# Run the test
-test_euclid:
-	java Main euclid.pmp
+# compile the java files
+compile: $(SRC)/LexicalAnalyzer.flex $(SRC)/*.java
+	$(JFLEX) $<
+	$(JC) $(JFLAGS) -d $(DIST) -cp $(SRC) $(SRC)/*.java
 
-test_arithmetic_operators:
-	java Main test/Aritmetic_Operators.pmp
+# create the jar file
+jar: compile
+	$(JAR) $(DIST)/part1.jar Main -C $(DIST) .
 
-test_basic_keywords_and_Operators:
-	java Main test/Basic_Keywords_and_Operators.pmp
+# create the javadoc
+javadoc:
+	$(JDOC) -d $(DOC) $(SRC)/*.java
 
-test_boolean_operators_and_comparison:
-	java Main test/Boolean_Operators_and_Comparison.pmp
+# run the test (test1.pmp); you can change the test file name
+test: jar
+	java -jar $(DIST)/part1.jar $(TEST)/test1.pmp
 
-test_comments:
-	java Main test/Comments.pmp
-
-test_error_scenarios:
-	cd src && java Main ../test/Error_Scenarios.pmp
-
-test_loops:
-	cd src && java Main ../test/Loops.pmp
-
-# Clean compiled files
+# clean the compiled files and doc
 clean:
-	rm -f *.class
+	rm -rf $(SRC)/*.class $(DOC)/* $(DIST)/*.jar $(DIST)/*.class
+
+# Phony targets
+.PHONY: all compile jar javadoc test clean
