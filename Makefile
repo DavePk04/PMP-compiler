@@ -25,7 +25,7 @@ jar: compile
 javadoc:
 	$(JDOC) -d $(DOC) $(SRC)/*.java
 
-# run the test (test1.pmp); you can change the test file name
+# run the test (euclid.pmp); you can change the test file name
 test: jar
 	java -jar $(DIST)/part1.jar $(TEST)/euclid.pmp
 

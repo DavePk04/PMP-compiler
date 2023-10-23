@@ -1,4 +1,0 @@
-token: begin	lexical unit: BEG
-token: a	lexical unit: VARNAME
-token: :=	lexical unit: ASSIGN
-Exception in thread "main" java.util.regex.PatternSyntaxException: Unmatched symbol(s) found. near index 1
