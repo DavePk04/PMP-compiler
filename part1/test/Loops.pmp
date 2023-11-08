@@ -1,0 +1,6 @@
+begin
+  while a < b do
+  begin
+    a:=a+1...
+  end...
+end
